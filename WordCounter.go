@@ -13,7 +13,7 @@ func CountWords(text string) map[string]int {
 
 	freq := make(map[string]int)
 	for _, word := range strings.Fields(strings.ToLower(text)) {
-		word = strings.Map(func(r rune) rune {
+		word = strings.Map(func(r rune) rune { //Rune literals are just 32-bit integer values. (however they're untyped constants, so their type can change)
 			if unicode.IsLetter(r) {
 				return r
 			} else {
