@@ -5,6 +5,7 @@ import (
 	"strings"
 	"unicode"
 	"io/ioutil"
+	"sort"
 )
 
 
@@ -29,17 +30,31 @@ func CountWords(text string) map[string]int {
 
 }
 
+func order(Map map[string]int) []string {
+	var words []string
+	for word := range Map {
+		words = append(words, word)
+	}
+	sort.Strings(words)
+	return words
+}
+
 func main() {
 	
-	dataBin, err := ioutil.ReadFile("words.txt")
-	if err != nil {
+	data, err := ioutil.ReadFile("words.txt")
+	if err != nil { // A successful call
 		fmt.Print(err)
 	}
-	textFile := string(dataBin)
+	textFile := string(data)
 	
-	count := CountWords(textFile)
+	countedWords := CountWords(textFile)
+	orderedCountList := order(countedWords)
 
-	fmt.Printf("%+v", count)
+	for _, word := range orderedCountList {
+		fmt.Println(word, countedWords[word])
+	}
+
+	
 
 
 
